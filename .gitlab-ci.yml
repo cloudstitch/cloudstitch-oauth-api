@@ -1,0 +1,40 @@
+image: tedb/lambda-build-box:8
+
+stages:
+  - build
+  - deploy
+  - clean_up
+
+cache:
+  untracked: true # Cache git-untracked files, like node_modules 
+
+before_script:
+  - ./get-secrets.sh
+  - NODE_ENV=production npm install --silent
+
+build:
+  stage: build
+  script:
+    - NODE_ENV=development npm install --silent
+    - npm run build
+    - rm -rf node_modules
+  artifacts:
+    paths:
+      - release
+
+deploy to production:
+  stage: deploy
+  environment:
+    name: production
+  only:
+    - production
+  script:
+    - serverless deploy --stage production
+
+clean_up:
+  stage: clean_up
+  script:
+    - rm -rf node_modules
+    - rm -rf release
+    - rm -rf ~/.node-gyp
+  when: on_failure

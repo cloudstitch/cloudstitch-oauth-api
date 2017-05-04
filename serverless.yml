@@ -1,0 +1,64 @@
+service: oauth
+custom:
+  staging:
+    versionFunctions: false
+  production:
+    versionFunctions: true
+provider:
+  name: aws
+  runtime: nodejs6.10
+  cfLogs: true
+  memorySize: 1024 
+  timeout: 10
+  role: arn:aws:iam::371305127297:role/lambda_exec_role
+  region: us-west-2
+  vpc:
+    securityGroupIds:
+      - sg-f82fb69f
+    subnetIds:
+      - subnet-8b8459fd
+      - subnet-b4e65dd0
+      - subnet-32ad4f6a
+  versionFunctions: ${self:custom:${opt:stage}:versionFunctions}
+
+plugins:
+  # - serverless-plugin-include-dependencies
+  # - serverless-enable-api-logs
+  # - serverless-offline
+  # - serverless-webpack
+  # - serverless-prune-plugin
+
+package:
+  exclude:
+    #- node_modules/** # add this yourself 
+    #- '!node_modules/@types/**' # add this yourself  
+    - configuration/**
+    - '!configuration/secrets/**'
+    - db/**
+    - doc/**
+    - legacy/**
+    - src/**
+    - mocks/**
+    - test/**
+    - node_modules_keep/**
+    - node_modules/**/*.pl
+    - node_modules/**/*.c
+    - node_modules/**/*.cpp
+    - node_modules/**/*.h
+    - node_modules/**/Makefile
+    - node_modules/**/tests/**
+    - node_modules/**/*.ts
+
+functions:
+  oauth-redirect:
+    name: ${opt:stage}-oauth-redirect
+    environment:
+      NODE_ENV: ${opt:stage}
+    handler: release/oauth-redirect.handler
+    role: arn:aws:iam::371305127297:role/lambda_basic_vpc_execution 
+    events:
+      - http:
+          path: /redirect
+          method: post
+          cors: true
+          role: arn:aws:iam::371305127297:role/apigateway-logs-us-west-2
