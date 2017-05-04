@@ -2,15 +2,15 @@ function createOauth2Client(service: string) {
   export let OauthClient = function() {
     const credentials = {
       client: {
-        id: configBlock.clientID,
-        secret: configBlock.clientSecret
+        id: configBlock.ClientID,
+        secret: configBlock.ClientSecret
         idParamName: 'key',
         secretParamName: 'client_secret'
       },
       auth: {
-        tokenHost: configBlock.clientTokenHost,
-        tokenPath: configBlock.clientTokenPath,
-        authorizePath: configBlock.authorizePath
+        tokenHost: configBlock.ClientTokenHost,
+        tokenPath: configBlock.ClientTokenPath,
+        authorizePath: configBlock.AuthorizePath
       }
     };
     return require('simple-oauth2').create(credentials);

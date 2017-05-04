@@ -47,11 +47,23 @@ var base = {
   AWS: {
     region: 'us-west-2'
   },
+
+  GitHub: {
+    Version: 2,
+    Scopes: '',
+    ClientTokenHost: '',
+    ClientTokenPath: '',
+    AuthorizePath: '',
+    ClientID: secrets.GitHub.ClientID,
+    ClientSecret: secrets.GitHub.ClientSecret,
+  },
+
+  // Not done
+
   Google: secrets.Google,
   Box: secrets.Box,
   Microsoft: secrets.Microsoft,
-  buckets: secrets.Buckets,
-  Shims: secrets.Shims,
+
   GitLab: {
     PrivateToken: secrets.GitLab.PrivateToken,
     ProductionBranch: 'master',
@@ -69,15 +81,7 @@ var base = {
     App: secrets.Intercom.App,
     Key: secrets.Intercom.Key
   },
-  GitHub: {
-    User: secrets.GitHub.Username,
-    Password: secrets.GitHub.Password,
-    ProductionBranch: 'gh-pages',
-    DevelopmentBranch: 'master',
-    CommitPrefix: secrets.GitLab.CommitPrefix,
-    ClientID: secrets.GitHub.ClientID,
-    ClientSecret: secrets.GitHub.ClientSecret,
-  },
+
   Stripe: {
     ButtonjoySecretKey: secrets.Stripe.ButtonjoySecretKey,
     ButtonjoyCharitySecretKey: secrets.Stripe.ButtonjoyCharitySecretKey,    

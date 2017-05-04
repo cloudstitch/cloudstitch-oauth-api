@@ -18,7 +18,11 @@ function createRedirect(service: string, version: number, createOAuthClientFn:an
   }
 }
 
-function createRedirectForService(service: string) : (req, res) => any {
+/*
+ * Redirect URI should be passed by the CLIENT ?RedirectURI=<URI>
+ */
+function createRedirectForService(service: string, redirectUri: string) : (req, res) => any {
   var serviceBlock = Constants[service];
-  return createRedirect(service, serviceBlock.version, createOAuthClientFn(service), serviceBlock.redirectUri, serviceBlock.scopes);
+  return createRedirect(service, serviceBlock.version, createOAuthClientFn(service), redirectUri, serviceBlock.scopes);
 }
+
