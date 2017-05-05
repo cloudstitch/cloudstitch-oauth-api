@@ -1,6 +1,6 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-const awsServerlessExpress = require('aws-serverless-express')
+// let express = require('express');
+// let bodyParser = require('body-parser');
+// const awsServerlessExpress = require('aws-serverless-express')
 
 
 // import {createOAuthClientFn} from "./oauth-client";
@@ -32,6 +32,6 @@ const awsServerlessExpress = require('aws-serverless-express')
 // }
 
 
-export function RedirectHandler(request, response) {
-  response.json({service: request.params.service, method: 'redirect'});
-}
+// export function RedirectHandler(request, response) {
+//   response.json({service: request.params.service, method: 'redirect'});
+// }

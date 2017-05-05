@@ -39,6 +39,10 @@ if (dev) {
   throw new Error("ERROR: Missing secrets file!");
 }
 
+console.log("Environment: ", environmentName);
+
+console.log(secrets);
+
 var base = {
   development: dev,
   production: prod,
@@ -48,14 +52,15 @@ var base = {
     region: 'us-west-2'
   },
 
-  GitHub: {
-    Version: 2,
-    Scopes: '',
-    ClientTokenHost: '',
-    ClientTokenPath: '',
-    AuthorizePath: '',
-    ClientID: secrets.GitHub.ClientID,
-    ClientSecret: secrets.GitHub.ClientSecret,
+  github: {
+    ClientID: secrets.github.ClientID,
+    ClientSecret: secrets.github.ClientSecret,
+    CallbackURL: secrets.github.CallbackURL
+  },
+  gitlab: {
+    ClientID: secrets.gitlab.ClientID,
+    ClientSecret: secrets.gitlab.ClientSecret,
+    CallbackURL: secrets.gitlab.CallbackURL    
   },
 
   // Not done
@@ -64,14 +69,6 @@ var base = {
   Box: secrets.Box,
   Microsoft: secrets.Microsoft,
 
-  GitLab: {
-    PrivateToken: secrets.GitLab.PrivateToken,
-    ProductionBranch: 'master',
-    DevelopmentBranch: 'staging',
-    CommitAsignee: secrets.GitLab.CommitAsignee,
-    CommitPrefix: secrets.GitLab.CommitPrefix,
-    ApiEndpoint: secrets.GitLab.ApiEndpoint,
-  },
   Twilio: {
     SID: secrets.Twilio.SID,
     Token: secrets.Twilio.Token,
