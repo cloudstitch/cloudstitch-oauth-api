@@ -24,7 +24,7 @@ provider:
 plugins:
   # - serverless-plugin-include-dependencies
   # - serverless-enable-api-logs
-  # - serverless-offline
+  - serverless-offline
   # - serverless-webpack
   # - serverless-prune-plugin
 
@@ -54,11 +54,37 @@ functions:
     name: ${opt:stage}-oauth-redirect
     environment:
       NODE_ENV: ${opt:stage}
-    handler: release/oauth-redirect.handler
+    handler: release/lambda-express.handler
     role: arn:aws:iam::371305127297:role/lambda_basic_vpc_execution 
     events:
       - http:
-          path: /redirect
-          method: post
+          path: /{service}/redirect
+          method: get
           cors: true
           role: arn:aws:iam::371305127297:role/apigateway-logs-us-west-2
+  oauth-token:
+    name: ${opt:stage}-oauth-token
+    environment:
+      NODE_ENV: ${opt:stage}
+    handler: release/lambda-express.handler
+    role: arn:aws:iam::371305127297:role/lambda_basic_vpc_execution 
+    events:
+      - http:
+          path: /{service}/token
+          method: get
+          cors: true
+          role: arn:aws:iam::371305127297:role/apigateway-logs-us-west-2
+
+
+  # oauth-token:
+  #   name: ${opt:stage}-oauth-token
+  #   environment:
+  #     NODE_ENV: ${opt:stage}
+  #   handler: release/oauth-token.handler
+  #   role: arn:aws:iam::371305127297:role/lambda_basic_vpc_execution 
+  #   events:
+  #     - http:
+  #         path: /token
+  #         method: post
+  #         cors: true
+  #         role: arn:aws:iam::371305127297:role/apigateway-logs-us-west-2          
