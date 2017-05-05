@@ -41,5 +41,4 @@ export function Configure(router: any, passport: any) {
   //   .get(authController.linkGithubSuccess);
   // router.route('/auth/github/fail')
   //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
-
 }

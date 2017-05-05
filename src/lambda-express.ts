@@ -1,6 +1,9 @@
 let express = require('express');
 let bodyParser = require('body-parser');
+let cookieParser = require('cookie-parser');
 let passport = require('passport');
+import crypto = require('crypto');
+
 const awsServerlessExpress = require('aws-serverless-express')
 
 // import {RedirectHandler} from "./oauth-redirect";
@@ -19,6 +22,15 @@ import {Configure as Google} from "./configure-google";
 let app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({type: 'application/json'}));
+app.use(cookieParser());
+
+// Add a state cookie
+app.use((req, res, done) => {
+  const state = req.cookies.state || crypto.randomBytes(20).toString('hex');
+  console.log('Setting verification state:', state);
+  res.cookie('state', state.toString(), {maxAge: 3600000, secure: true, httpOnly: true});
+  done();
+})
 
 let router = express.Router();
 
