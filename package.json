@@ -1,0 +1,36 @@
+{
+  "name": "cloudstitch-oauth-api",
+  "version": "0.0.1",
+  "description": "This is an OAuth Token Handler, yo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudstitch/cloudstitch-oauth-api.git"
+  },
+  "author": "Cloudstitch Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cloudstitch/cloudstitch-oauth-api/issues"
+  },
+  "homepage": "https://github.com/cloudstitch/cloudstitch-oauth-api#readme",
+  "devDependencies": {
+    "serverless": "^1.13.2",
+    "serverless-offline": "^3.14.0"
+  },
+  "dependencies": {
+    "aws-serverless-express": "^3.0.0",
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "passport": "^0.3.2",
+    "passport-azure-oauth": "0.0.6",
+    "passport-dropbox-oauth2": "^1.1.0",
+    "passport-github": "^1.1.0",
+    "passport-gitlab": "^0.5.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-stripe": "^0.2.2"
+  }
+}
