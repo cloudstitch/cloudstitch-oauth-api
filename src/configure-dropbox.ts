@@ -1,6 +1,5 @@
-var Strategy = require('passport-dropbox-oauth2').Strategy;
-
-import Constants = require('./constants');
+import { Strategy } from 'passport-dropbox-oauth2';
+import * as Constants from './constants';
 
 const SERVICE = 'dropbox';
 
@@ -10,7 +9,7 @@ function Handler(req, accessToken, refreshToken, profile, done) {
 };
 
 export function Configure(router: any, passport: any) {
-  // Github
+  // Dropbox
   // ------
   let opts = {
     clientID: Constants[SERVICE].ClientID,

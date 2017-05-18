@@ -52,6 +52,10 @@ var base = {
     region: 'us-west-2'
   },
 
+  domains: {
+    dynamo: secrets.AWS.DynamoDB.endpoint
+  },
+
   github: {
     ClientID: secrets.github.ClientID,
     ClientSecret: secrets.github.ClientSecret,

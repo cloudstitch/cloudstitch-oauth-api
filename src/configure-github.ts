@@ -1,5 +1,5 @@
-var Strategy = require('passport-github').Strategy;
-import Constants = require('./constants');
+import { Strategy } from 'passport-github';
+import * as Constants from './constants';
 
 const SERVICE = 'github';
 

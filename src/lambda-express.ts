@@ -1,8 +1,8 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let cookieParser = require('cookie-parser');
-let passport = require('passport');
-import crypto = require('crypto');
+import * as express from 'express';
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+import * as passport from 'passport';
+import * as crypto from 'crypto';
 
 const awsServerlessExpress = require('aws-serverless-express')
 

@@ -1,6 +1,5 @@
-var Strategy = require('passport-azure-oauth').Strategy;
-
-import Constants = require('./constants');
+import { Strategy } from 'passport-azure-oauth';
+import * as Constants from './constants';
 
 const SERVICE = 'microsoft';
 

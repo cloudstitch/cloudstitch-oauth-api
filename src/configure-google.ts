@@ -1,20 +1,31 @@
-var Strategy = require('passport-google-oauth').OAuth2Strategy;
-
-import Constants = require('./constants');
+import { OAuthStrategy as Strategy } from 'passport-google-oauth';
+import * as Constants from './constants';
 
 const SERVICE = 'google';
 
-function Handler(req, accessToken, refreshToken, profile, done) {
+function Handler(accessToken: string, refreshToken: string, profile: any, done: (error: any, user?: any, msg?: any)=> void) {
   console.log(accessToken, refreshToken, profile);
   done(null);
 };
 
 export function Configure(router: any, passport: any) {
-  // Github
+  // Google
   // ------
+  /*
+  interface IOAuthStrategyOption {
+    consumerKey: string;
+    consumerSecret: string;
+    callbackURL: string;
+
+    requestTokenURL?: string;
+    accessTokenURL?: string;
+    userAuthorizationURL?: string;
+    sessionKey?: string;
+}
+   */
   let opts = {
-    clientID: Constants[SERVICE].ClientID,
-    clientSecret: Constants[SERVICE].ClientSecret,
+    consumerKey: Constants[SERVICE].consumerKey,
+    consumerSecret: Constants[SERVICE].consumerSecret,
     callbackURL: Constants[SERVICE].CallbackURL,
     passReqToCallback: true
   };
