@@ -32,19 +32,27 @@ app.use(cookieParser());
 // Add a state cookie
 app.use(async (req, res, done) => {
   if(!req.cookies.state && req.query.username) {
-    const state = crypto.randomBytes(20).toString('hex');
-    let oldState = await firebaseApp.database().ref(`auth/${req.query.username}/`).once('value');
-    firebaseApp.database().ref(`auth/${req.query.username}/`).set({
-      github: false,
-      gitlab: false,
-      google: false,
-      dropbox: false,
-      stripe: false,
-      microsoft: false,
-      state
-    });
+    //see if the current user has a state value stored in the firebase auth info
+    let authInfoSnapshot = await firebaseApp.database().ref(`auth/${req.query.username}/`).once('value');
+    let authInfo = authInfoSnapshot.val();
+
+    const state = authInfo ? authInfo.state : crypto.randomBytes(20).toString('hex')
+    
+    if(!authInfo) {
+      // no auth info yet? sore it
+      await firebaseApp.database().ref(`auth/${state}/`).set(req.query.username);
+      await firebaseApp.database().ref(`auth/${req.query.username}/`).set({
+        github: false,
+        gitlab: false,
+        google: false,
+        dropbox: false,
+        stripe: false,
+        microsoft: false,
+        state
+      });
+    }
     console.log('Setting verification state:', state);
-    res.cookie('state', state.toString(), {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
+    res.cookie('state', state, {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
   }
   done();
 })

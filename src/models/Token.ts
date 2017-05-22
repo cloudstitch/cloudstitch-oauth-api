@@ -8,7 +8,7 @@ export interface IToken {
   /*
    * The service where this user mas permissions
    */
-  service: SERVICES;
+  service: string;
 
   /*
    * The identity used to identify that user.
@@ -42,7 +42,7 @@ export interface IToken {
 export class Token implements DynamoFriendly, IToken {
   // Standard
   user: string = null;
-  service: 'google' | 'microsoft' = null;
+  service: string;
   token: string = null;
   refreshToken: string = null;
   scope: string = null;  
