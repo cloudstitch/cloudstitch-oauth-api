@@ -6,11 +6,12 @@ import { Instance as TokenHandler } from "./TokenHandler";
 const SERVICE = 'github';
 
 import * as firebaseAdmin from "firebase-admin";
-let firebaseApp: firebaseAdmin.app.App =  require("./firebase-admin");
+require("./firebase-admin");
+let firebaseApp: firebaseAdmin.app.App =  firebaseAdmin.app(`cloudstitch-${Constants.environmentName}`)
 
 async function Handler(req, accessToken, refreshToken, profile, done) {
   console.log("--------------------- handling token")
-  let snapshot = await firebaseApp.database().ref(`auth/${req.cookie.state}/`).once('value');
+  let snapshot = await firebaseApp.database().ref(`auth/${req.cookies.state}/`).once('value');
   let username = snapshot.val();
   await TokenHandler.save(accessToken, refreshToken, SERVICE, username);
   done(null);

@@ -4,12 +4,12 @@ import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
 
-import * as firebaseAdmin from "firebase-admin";
-let firebaseApp: firebaseAdmin.app.App =  require("./firebase-admin");
-
 const awsServerlessExpress = require('aws-serverless-express')
 
 import * as Constants from "./constants";
+import * as firebaseAdmin from "firebase-admin";
+require("./firebase-admin");
+let firebaseApp: firebaseAdmin.app.App =  firebaseAdmin.app(`cloudstitch-${Constants.environmentName}`)
 
 // import {RedirectHandler} from "./oauth-redirect";
 // import {TokenHandler} from "./oauth-token";
