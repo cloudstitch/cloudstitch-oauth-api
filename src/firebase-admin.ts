@@ -3,7 +3,7 @@ import * as Constants from "./constants";
 
 let app = firebaseAdmin
   .initializeApp({
-    credential: Constants.Firebase,
+    credential: firebaseAdmin.credential.cert(Constants.Firebase),
     databaseURL: `https://cloudstitch-${Constants.environmentName}.firebaseio.com`
   }, `cloudstitch-${Constants.environmentName}`);
 
