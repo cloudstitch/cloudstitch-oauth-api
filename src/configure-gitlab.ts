@@ -3,7 +3,7 @@ import * as Constants from './constants';
 
 const SERVICE = 'gitlab';
 
-function Handler(req, accessToken, refreshToken, profile, done) {
+function Handler(accessToken, refreshToken, profile, done) {
   console.log(accessToken, refreshToken, profile);
   done(null);
 };
@@ -11,32 +11,33 @@ function Handler(req, accessToken, refreshToken, profile, done) {
 export function Configure(router: any, passport: any) {
   // Github
   // ------
-  let opts = {
-    clientID: Constants[SERVICE].ClientID,
-    clientSecret: Constants[SERVICE].ClientSecret,
-    callbackURL: Constants[SERVICE].CallbackURL,
-    passReqToCallback: true
-  };
-  console.log(opts);
+  if(Constants[SERVICE]) {
+    let opts = {
+      clientID: Constants[SERVICE].ClientID,
+      clientSecret: Constants[SERVICE].ClientSecret,
+      callbackURL: Constants[SERVICE].CallbackURL
+    };
+    console.log(opts);
 
-  passport.use(new Strategy(opts, Handler));
+    passport.use(new Strategy(opts, Handler));
 
-  router.get(`/oauth/${SERVICE}/redirect`,
-    passport.authenticate(SERVICE, {
-      scope: 'repo'
-    }
-  ));
+    router.get(`/oauth/${SERVICE}/redirect`,
+      passport.authenticate(SERVICE, {
+        scope: 'repo'
+      }
+    ));
 
-  router.get(`/oauth/${SERVICE}/get_token`,
-    passport.authenticate(SERVICE, {
-      successRedirect: `/oauth/${SERVICE}/success`,
-      failureRedirect: `/oauth/${SERVICE}/fail`
-    }
-  ));
+    router.get(`/oauth/${SERVICE}/get_token`,
+      passport.authenticate(SERVICE, {
+        successRedirect: `/oauth/${SERVICE}/success`,
+        failureRedirect: `/oauth/${SERVICE}/fail`
+      }
+    ));
 
-  // router.route('/auth/github/success')
-  //   .get(authController.linkGithubSuccess);
-  // router.route('/auth/github/fail')
-  //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
+    // router.route('/auth/github/success')
+    //   .get(authController.linkGithubSuccess);
+    // router.route('/auth/github/fail')
+    //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
+  }
 
 }

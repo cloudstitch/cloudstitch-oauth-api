@@ -5,7 +5,12 @@
     "sourceMap": true,
     "removeComments": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+        "lib": [
+        "es2015",
+        "es2015.core",
+        "es2015.promise"
+    ]
   },
   "exclude": [
     "public/img",

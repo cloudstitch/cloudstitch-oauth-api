@@ -23,33 +23,35 @@ export function Configure(router: any, passport: any) {
     sessionKey?: string;
 }
    */
-  let opts = {
-    consumerKey: Constants[SERVICE].consumerKey,
-    consumerSecret: Constants[SERVICE].consumerSecret,
-    callbackURL: Constants[SERVICE].CallbackURL,
-    passReqToCallback: true
-  };
-  console.log(opts);
+  if(Constants[SERVICE]) {
+    let opts = {
+      consumerKey: Constants[SERVICE].consumerKey,
+      consumerSecret: Constants[SERVICE].consumerSecret,
+      callbackURL: Constants[SERVICE].CallbackURL,
+      passReqToCallback: true
+    };
+    console.log(opts);
 
-  passport.use(new Strategy(opts, Handler));
+    passport.use(new Strategy(opts, Handler));
 
-  router.get(`/oauth/${SERVICE}/redirect`,
-    passport.authenticate(SERVICE, {
-      scope: 'profile email https://www.googleapis.com/auth/plus.me http://spreadsheets.google.com/feeds/ https://www.googleapis.com/auth/drive',
-      accessType: 'offline', // Necessary for refreshToken
-      approvalPrompt: 'force' // Necessary for refreshToken
-    }
-  ));
+    router.get(`/oauth/${SERVICE}/redirect`,
+      passport.authenticate(SERVICE, {
+        scope: 'profile email https://www.googleapis.com/auth/plus.me http://spreadsheets.google.com/feeds/ https://www.googleapis.com/auth/drive',
+        accessType: 'offline', // Necessary for refreshToken
+        approvalPrompt: 'force' // Necessary for refreshToken
+      }
+    ));
 
-  router.get(`/oauth/${SERVICE}/get_token`,
-    passport.authenticate(SERVICE, {
-      successRedirect: `/oauth/${SERVICE}/success`,
-      failureRedirect: `/oauth/${SERVICE}/fail`
-    }
-  ));
+    router.get(`/oauth/${SERVICE}/get_token`,
+      passport.authenticate(SERVICE, {
+        successRedirect: `/oauth/${SERVICE}/success`,
+        failureRedirect: `/oauth/${SERVICE}/fail`
+      }
+    ));
 
-  // router.route('/auth/github/success')
-  //   .get(authController.linkGithubSuccess);
-  // router.route('/auth/github/fail')
-  //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
+    // router.route('/auth/github/success')
+    //   .get(authController.linkGithubSuccess);
+    // router.route('/auth/github/fail')
+    //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
+  }
 }

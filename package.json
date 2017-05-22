@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npm run clean; cd src; tsc",
     "clean": "rm -r release",
+    "dev:server": "npm run build; SLS_DEBUG=* NODE_ENV=development sls offline -s development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,6 +38,7 @@
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
+    "firebase-admin": "^4.2.1",
     "passport": "^0.3.2",
     "passport-azure-oauth": "0.0.6",
     "passport-dropbox-oauth2": "^1.1.0",

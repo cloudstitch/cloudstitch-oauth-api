@@ -44,12 +44,13 @@ console.log("Environment: ", environmentName);
 console.log(secrets);
 
 var base = {
+  failureUrl: prod ? "https://www.cloudstitch.com/login" : staging ? "https://staging.cloudstitch.com/login" : "http://localhost:3000",
   development: dev,
   production: prod,
   staging: staging,
   environmentName: environmentName,
   AWS: {
-    region: 'us-west-2'
+    region: secrets.AWS.region
   },
 
   domains: {
@@ -57,15 +58,17 @@ var base = {
   },
 
   github: {
-    ClientID: secrets.github.ClientID,
-    ClientSecret: secrets.github.ClientSecret,
-    CallbackURL: secrets.github.CallbackURL
+    ClientID: secrets.GitHub.ClientID,
+    ClientSecret: secrets.GitHub.ClientSecret,
+    CallbackURL: secrets.GitHub.CallbackURL
   },
   gitlab: {
-    ClientID: secrets.gitlab.ClientID,
-    ClientSecret: secrets.gitlab.ClientSecret,
-    CallbackURL: secrets.gitlab.CallbackURL    
+    ClientID: secrets.GitLab.ClientID,
+    ClientSecret: secrets.GitLab.ClientSecret,
+    CallbackURL: secrets.GitLab.CallbackURL    
   },
+
+  Firebase: secrets.Firebase,
 
   // Not done
 

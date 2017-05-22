@@ -4,7 +4,12 @@ import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
 
+import * as firebaseAdmin from "firebase-admin";
+let firebaseApp: firebaseAdmin.app.App =  require("./firebase-admin");
+
 const awsServerlessExpress = require('aws-serverless-express')
+
+import * as Constants from "./constants";
 
 // import {RedirectHandler} from "./oauth-redirect";
 // import {TokenHandler} from "./oauth-token";
@@ -25,10 +30,22 @@ app.use(bodyParser.json({type: 'application/json'}));
 app.use(cookieParser());
 
 // Add a state cookie
-app.use((req, res, done) => {
-  const state = req.cookies.state || crypto.randomBytes(20).toString('hex');
-  console.log('Setting verification state:', state);
-  res.cookie('state', state.toString(), {maxAge: 3600000, secure: true, httpOnly: true});
+app.use(async (req, res, done) => {
+  if(!req.cookies.state && req.query.username) {
+    const state = crypto.randomBytes(20).toString('hex');
+    let oldState = await firebaseApp.database().ref(`auth/${req.query.username}/`).once('value');
+    firebaseApp.database().ref(`auth/${req.query.username}/`).set({
+      github: false,
+      gitlab: false,
+      google: false,
+      dropbox: false,
+      stripe: false,
+      microsoft: false,
+      state
+    });
+    console.log('Setting verification state:', state);
+    res.cookie('state', state.toString(), {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
+  }
   done();
 })
 
