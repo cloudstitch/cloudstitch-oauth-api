@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean; cd src; tsc",
-    "clean": "rm -r release",
+    "clean": "rm -r release || true",
     "dev:server": "npm run build; SLS_DEBUG=* NODE_ENV=development sls offline -s development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
