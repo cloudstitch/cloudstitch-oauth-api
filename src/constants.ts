@@ -49,6 +49,32 @@ var base = {
   production: prod,
   staging: staging,
   environmentName: environmentName,
+  callbackURLs: {
+    development: {
+      github:  "http://development.cloudstitch.com:3000/oauth/github/token",
+      gitlab:  "http://development.cloudstitch.com:3000/oauth/gitlab/token",
+      google:  "http://development.cloudstitch.com:3000/oauth/google/token",
+      dropbox: "http://development.cloudstitch.com:3000/oauth/dropbox/token",
+      box:     "http://development.cloudstitch.com:3000/oauth/box/token",
+      stripe:  "http://development.cloudstitch.com:3000/oauth/stripe/token"
+    },
+    production: {
+      github:  "https://oauth.cloudstitch.com/production/oauth/github/token",
+      gitlab:  "https://oauth.cloudstitch.com/production/oauth/gitlab/token",
+      google:  "https://oauth.cloudstitch.com/production/oauth/google/token",
+      dropbox: "https://oauth.cloudstitch.com/production/oauth/dropbox/token",
+      box:     "https://oauth.cloudstitch.com/production/oauth/box/token",
+      stripe:  "https://oauth.cloudstitch.com/production/oauth/stripe/token"
+    },
+    staging: {
+      github:  "https://oauth-staging.cloudstitch.com/staging/oauth/github/token",
+      gitlab:  "https://oauth-staging.cloudstitch.com/staging/oauth/gitlab/token",
+      google:  "https://oauth-staging.cloudstitch.com/staging/oauth/google/token",
+      dropbox: "https://oauth-staging.cloudstitch.com/staging/oauth/dropbox/token",
+      box:     "https://oauth-staging.cloudstitch.com/staging/oauth/box/token",
+      stripe:  "https://oauth-staging.cloudstitch.com/staging/oauth/stripe/token"
+    }
+  },
   AWS: {
     region: secrets.AWS.region
   },

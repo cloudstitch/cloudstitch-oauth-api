@@ -48,6 +48,7 @@ package:
     - node_modules/**/Makefile
     - node_modules/**/tests/**
     - node_modules/**/*.ts
+    - node_modules/serverless*/***
 
 functions:
   oauth-redirect:

@@ -25,7 +25,7 @@ export function Configure(router: any, passport: any) {
     let opts = {
       clientID: Constants[SERVICE].ClientID,
       clientSecret: Constants[SERVICE].ClientSecret,
-      callbackURL: `http://ted.studymonk.com:3000/oauth/${SERVICE}/token`,//Constants[SERVICE].CallbackURL
+      callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
       passReqToCallback: true
     };
     console.log(opts);

@@ -3,7 +3,7 @@ import * as Constants from './constants';
 
 const SERVICE = 'google';
 
-function Handler(accessToken: string, refreshToken: string, profile: any, done: (error: any, user?: any, msg?: any)=> void) {
+function Handler(accessToken: string, refreshToken: string, profile: any, done) {
   console.log(accessToken, refreshToken, profile);
   done(null);
 };
@@ -27,7 +27,7 @@ export function Configure(router: any, passport: any) {
     let opts = {
       consumerKey: Constants[SERVICE].consumerKey,
       consumerSecret: Constants[SERVICE].consumerSecret,
-      callbackURL: Constants[SERVICE].CallbackURL,
+      callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
       passReqToCallback: true
     };
     console.log(opts);

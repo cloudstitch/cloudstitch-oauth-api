@@ -15,7 +15,8 @@ export function Configure(router: any, passport: any) {
     let opts = {
       clientID: Constants[SERVICE].ClientID,
       clientSecret: Constants[SERVICE].ClientSecret,
-      callbackURL: Constants[SERVICE].CallbackURL
+      callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
+      passReqToCallback: true
     };
     console.log(opts);
 
