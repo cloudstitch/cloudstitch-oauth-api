@@ -1,12 +1,9 @@
 import { Strategy } from 'passport-dropbox-oauth2';
 import * as Constants from './constants';
 
-const SERVICE = 'dropbox';
+import TokenHandler from "./TokenHandler";
 
-function Handler(req, accessToken, refreshToken, profile, done) {
-  console.log(accessToken, refreshToken, profile);
-  done(null);
-};
+const SERVICE = 'dropbox';
 
 export function Configure(router: any, passport: any) {
   // Dropbox
@@ -20,24 +17,19 @@ export function Configure(router: any, passport: any) {
     };
     console.log(opts);
 
-    passport.use(new Strategy(opts, Handler));
+    passport.use(new Strategy(opts, TokenHandler(SERVICE)));
 
-    router.get(`/oauth/${SERVICE}/redirect`,
+    router.get(`/${SERVICE}/redirect`,
       passport.authenticate('dropbox-oauth2', {
       }
     ));
 
-    router.get(`/oauth/${SERVICE}/get_token`,
-      passport.authenticate('dropbox-oauth2', {
-        successRedirect: `/oauth/${SERVICE}/success`,
-        failureRedirect: `/oauth/${SERVICE}/fail`
-      }
-    ));
+    router.route(`/${SERVICE}/token`)
+      .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),
+        (req, res) => {
+          res.redirect("https://www.cloudstitch.com/");
+        });
 
-    // router.route('/auth/github/success')
-    //   .get(authController.linkGithubSuccess);
-    // router.route('/auth/github/fail')
-    //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
   }
 
 }

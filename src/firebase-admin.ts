@@ -20,5 +20,3 @@ console.log(typeof firebaseApp.database);
 if(typeof firebaseApp === undefined) {
   throw new Error("failed to init firebase");
 }
-
-exports = firebaseAdmin.app(`cloudstitch-${Constants.environmentName}`);

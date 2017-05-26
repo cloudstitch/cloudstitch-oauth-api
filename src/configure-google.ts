@@ -1,28 +1,13 @@
 import { OAuthStrategy as Strategy } from 'passport-google-oauth';
 import * as Constants from './constants';
 
-const SERVICE = 'google';
+import TokenHandler from "./TokenHandler";
 
-function Handler(accessToken: string, refreshToken: string, profile: any, done) {
-  console.log(accessToken, refreshToken, profile);
-  done(null);
-};
+const SERVICE = 'google';
 
 export function Configure(router: any, passport: any) {
   // Google
   // ------
-  /*
-  interface IOAuthStrategyOption {
-    consumerKey: string;
-    consumerSecret: string;
-    callbackURL: string;
-
-    requestTokenURL?: string;
-    accessTokenURL?: string;
-    userAuthorizationURL?: string;
-    sessionKey?: string;
-}
-   */
   if(Constants[SERVICE]) {
     let opts = {
       consumerKey: Constants[SERVICE].consumerKey,
@@ -32,9 +17,9 @@ export function Configure(router: any, passport: any) {
     };
     console.log(opts);
 
-    passport.use(new Strategy(opts, Handler));
+    passport.use(new Strategy(opts, <any>TokenHandler(SERVICE)));
 
-    router.get(`/oauth/${SERVICE}/redirect`,
+    router.get(`/${SERVICE}/redirect`,
       passport.authenticate(SERVICE, {
         scope: 'profile email https://www.googleapis.com/auth/plus.me http://spreadsheets.google.com/feeds/ https://www.googleapis.com/auth/drive',
         accessType: 'offline', // Necessary for refreshToken
@@ -42,16 +27,10 @@ export function Configure(router: any, passport: any) {
       }
     ));
 
-    router.get(`/oauth/${SERVICE}/get_token`,
-      passport.authenticate(SERVICE, {
-        successRedirect: `/oauth/${SERVICE}/success`,
-        failureRedirect: `/oauth/${SERVICE}/fail`
-      }
-    ));
-
-    // router.route('/auth/github/success')
-    //   .get(authController.linkGithubSuccess);
-    // router.route('/auth/github/fail')
-    //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
+    router.route(`/:stage/${SERVICE}/token`)
+      .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),
+        (req, res) => {
+          res.redirect(Constants.loadingUrl);
+        });
   }
 }

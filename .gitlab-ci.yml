@@ -31,6 +31,24 @@ deploy to production:
   script:
     - serverless deploy --stage production
 
+deploy to staging:
+  stage: deploy
+  environment:
+    name: staging
+  only:
+    - staging
+  script:
+    - serverless deploy --stage staging
+
+deploy to development:
+  stage: deploy
+  environment:
+    name: development
+  only:
+    - development
+  script:
+    - serverless deploy --stage development
+
 clean_up:
   stage: clean_up
   script:

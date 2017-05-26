@@ -59,7 +59,7 @@ functions:
     role: arn:aws:iam::371305127297:role/lambda_basic_vpc_execution 
     events:
       - http:
-          path: /oauth/{service}/redirect
+          path: /{service}/redirect
           method: get
           cors: true
           role: arn:aws:iam::371305127297:role/apigateway-logs-us-west-2
@@ -71,7 +71,7 @@ functions:
     role: arn:aws:iam::371305127297:role/lambda_basic_vpc_execution 
     events:
       - http:
-          path: /oauth/{service}/token
+          path: /{service}/token
           method: get
           cors: true
           role: arn:aws:iam::371305127297:role/apigateway-logs-us-west-2

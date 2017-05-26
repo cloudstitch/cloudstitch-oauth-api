@@ -49,6 +49,7 @@ var base = {
   production: prod,
   staging: staging,
   environmentName: environmentName,
+  loadingUrl: "http://cloudstitch.com/loading",
   callbackURLs: {
     development: {
       github:  "http://development.cloudstitch.com:3000/oauth/github/token",

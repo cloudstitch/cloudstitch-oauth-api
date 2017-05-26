@@ -1,13 +1,9 @@
 var Strategy = require('passport-stripe').Strategy;
+import * as Constants from './constants';
 
-import Constants = require('./constants');
+import TokenHandler from "./TokenHandler";
 
 const SERVICE = 'stripe';
-
-function Handler(req, accessToken, refreshToken, profile, done) {
-  console.log(accessToken, refreshToken, profile);
-  done(null);
-};
 
 export function Configure(router: any, passport: any) {
   // Github
@@ -21,25 +17,19 @@ export function Configure(router: any, passport: any) {
     };
     console.log(opts);
 
-    passport.use(new Strategy(opts, Handler));
+    passport.use(new Strategy(opts, TokenHandler(SERVICE)));
 
-    router.get(`/oauth/${SERVICE}/redirect`,
+    router.get(`/:stage/${SERVICE}/redirect`,
       passport.authenticate('stripe', {
         scope: 'read_write'
       }
     ));
 
-    router.get(`/oauth/${SERVICE}/get_token`,
-      passport.authenticate('stripe', {
-        successRedirect: `/oauth/${SERVICE}/success`,
-        failureRedirect: `/oauth/${SERVICE}/fail`
-      }
-    ));
-
-    // router.route('/auth/github/success')
-    //   .get(authController.linkGithubSuccess);
-    // router.route('/auth/github/fail')
-    //   .get(cors.addCORSHeaders, passportConf.isAuthenticatedApi, authController.linkGithubFail);
+    router.route(`/:stage/${SERVICE}/token`)
+      .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),
+        (req, res) => {
+          res.redirect(Constants.loadingUrl);
+        });
   }
 
 }
