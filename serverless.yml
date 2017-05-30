@@ -24,7 +24,7 @@ provider:
 plugins:
   # - serverless-plugin-include-dependencies
   # - serverless-enable-api-logs
-  - serverless-offline
+  # - serverless-offline
   # - serverless-webpack
   # - serverless-prune-plugin
 

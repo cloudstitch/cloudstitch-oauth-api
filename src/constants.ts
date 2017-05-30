@@ -52,28 +52,28 @@ var base = {
   loadingUrl: "http://cloudstitch.com/loading",
   callbackURLs: {
     development: {
-      github:  "http://development.cloudstitch.com:3000/oauth/github/token",
-      gitlab:  "http://development.cloudstitch.com:3000/oauth/gitlab/token",
-      google:  "http://development.cloudstitch.com:3000/oauth/google/token",
-      dropbox: "http://development.cloudstitch.com:3000/oauth/dropbox/token",
-      box:     "http://development.cloudstitch.com:3000/oauth/box/token",
-      stripe:  "http://development.cloudstitch.com:3000/oauth/stripe/token"
+      github:  "http://development.cloudstitch.com:3000/github/token",
+      gitlab:  "http://development.cloudstitch.com:3000/gitlab/token",
+      google:  "http://development.cloudstitch.com:3000/google/token",
+      dropbox: "http://development.cloudstitch.com:3000/dropbox/token",
+      box:     "http://development.cloudstitch.com:3000/box/token",
+      stripe:  "http://development.cloudstitch.com:3000/stripe/token"
     },
     production: {
-      github:  "https://oauth.cloudstitch.com/production/oauth/github/token",
-      gitlab:  "https://oauth.cloudstitch.com/production/oauth/gitlab/token",
-      google:  "https://oauth.cloudstitch.com/production/oauth/google/token",
-      dropbox: "https://oauth.cloudstitch.com/production/oauth/dropbox/token",
-      box:     "https://oauth.cloudstitch.com/production/oauth/box/token",
-      stripe:  "https://oauth.cloudstitch.com/production/oauth/stripe/token"
+      github:  "https://f2xwn61fsk.execute-api.us-west-2.amazonaws.com/production/github/token",
+      gitlab:  "https://f2xwn61fsk.execute-api.us-west-2.amazonaws.com/production/gitlab/token",
+      google:  "https://f2xwn61fsk.execute-api.us-west-2.amazonaws.com/production/google/token",
+      dropbox: "https://f2xwn61fsk.execute-api.us-west-2.amazonaws.com/production/dropbox/token",
+      box:     "https://f2xwn61fsk.execute-api.us-west-2.amazonaws.com/production/box/token",
+      stripe:  "https://f2xwn61fsk.execute-api.us-west-2.amazonaws.com/production/stripe/token"
     },
     staging: {
-      github:  "https://oauth-staging.cloudstitch.com/staging/oauth/github/token",
-      gitlab:  "https://oauth-staging.cloudstitch.com/staging/oauth/gitlab/token",
-      google:  "https://oauth-staging.cloudstitch.com/staging/oauth/google/token",
-      dropbox: "https://oauth-staging.cloudstitch.com/staging/oauth/dropbox/token",
-      box:     "https://oauth-staging.cloudstitch.com/staging/oauth/box/token",
-      stripe:  "https://oauth-staging.cloudstitch.com/staging/oauth/stripe/token"
+      github:  "https://xrxmyj2ege.execute-api.us-west-2.amazonaws.com/staging/github/token",
+      gitlab:  "https://xrxmyj2ege.execute-api.us-west-2.amazonaws.com/staging/gitlab/token",
+      google:  "https://xrxmyj2ege.execute-api.us-west-2.amazonaws.com/staging/google/token",
+      dropbox: "https://xrxmyj2ege.execute-api.us-west-2.amazonaws.com/staging/dropbox/token",
+      box:     "https://xrxmyj2ege.execute-api.us-west-2.amazonaws.com/staging/box/token",
+      stripe:  "https://xrxmyj2ege.execute-api.us-west-2.amazonaws.com/staging/stripe/token"
     }
   },
   AWS: {
