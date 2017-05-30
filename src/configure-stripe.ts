@@ -19,13 +19,13 @@ export function Configure(router: any, passport: any) {
 
     passport.use(new Strategy(opts, TokenHandler(SERVICE)));
 
-    router.get(`/:stage/${SERVICE}/redirect`,
+    router.get(`/${SERVICE}/redirect`,
       passport.authenticate('stripe', {
         scope: 'read_write'
       }
     ));
 
-    router.route(`/:stage/${SERVICE}/token`)
+    router.route(`/${SERVICE}/token`)
       .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),
         (req, res) => {
           res.redirect(Constants.loadingUrl);

@@ -27,7 +27,7 @@ export function Configure(router: any, passport: any) {
       }
     ));
 
-    router.route(`/:stage/${SERVICE}/token`)
+    router.route(`/${SERVICE}/token`)
       .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),
         (req, res) => {
           res.redirect(Constants.loadingUrl);
