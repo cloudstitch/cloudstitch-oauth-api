@@ -3,6 +3,7 @@ import * as bodyParser from 'body-parser';
 import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
+import * as token from "./token";
 
 const awsServerlessExpress = require('aws-serverless-express')
 
@@ -31,17 +32,28 @@ app.use(cookieParser());
 
 // Add a state cookie
 app.use(async (req, res, done) => {
-  if(!req.cookies.state && req.query.username) {
+  if(!req.cookies.state && req.query.token) {
     //see if the current user has a state value stored in the firebase auth info
-    let authInfoSnapshot = await firebaseApp.database().ref(`auth/${req.query.username}/`).once('value');
+    let username;
+    try {
+      username = token.checkWebToken(req.query.token);
+    } catch(e) {}
+    if(!username) {
+      res.statusCode = 403;
+      res.send(JSON.stringify({error: true, message: "Token malformed or username field missing."}))
+      res.end();
+    }
+
+
+    let authInfoSnapshot = await firebaseApp.database().ref(`auth/${username}/`).once('value');
     let authInfo = authInfoSnapshot.val();
 
     const state = authInfo ? authInfo.state : crypto.randomBytes(20).toString('hex')
     
     if(!authInfo) {
       // no auth info yet? sore it
-      await firebaseApp.database().ref(`auth/${state}/`).set(req.query.username);
-      await firebaseApp.database().ref(`auth/${req.query.username}/`).set({
+      await firebaseApp.database().ref(`auth/${state}/`).set(username);
+      await firebaseApp.database().ref(`auth/${username}/`).set({
         github: false,
         gitlab: false,
         google: false,
@@ -53,8 +65,14 @@ app.use(async (req, res, done) => {
     }
     console.log('Setting verification state:', state);
     res.cookie('state', state, {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
+    done();
+  } else if(!req.cookies.state) {
+    res.statusCode = 403;
+    res.send(JSON.stringify({error: true, message: "Token missing or session lost."}))
+    res.end();
+  } else {
+    done();
   }
-  done();
 })
 
 let router = express.Router();

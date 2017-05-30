@@ -14,6 +14,8 @@ let dev = (process.env.NODE_ENV === "development");
 let staging = (process.env.NODE_ENV === "staging");
 let prod = (process.env.NODE_ENV === "production");
 
+let path = require('path');
+
 if (process.env.FORCE_PRODUCTION==="true") {
   prod = true;
   dev = false;
@@ -121,6 +123,9 @@ var base = {
     SecretKey: secrets.Stripe.SecretKey,
     PublicKey: secrets.Stripe.PublishableKey,
     ConnectClientKey: secrets.Stripe.ConnectClientKey
+  },
+  WebToken: {
+    publicKeyPath: path.join(__dirname, '..', 'configuration', 'secrets', `${environmentName}-webtoken.public.key`)
   }
 };
 
