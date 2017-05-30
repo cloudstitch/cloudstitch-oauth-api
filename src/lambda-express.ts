@@ -42,8 +42,8 @@ app.use(async (req, res, done) => {
       res.statusCode = 403;
       res.send(JSON.stringify({error: true, message: "Token malformed or username field missing."}))
       res.end();
+      return;
     }
-
 
     let authInfoSnapshot = await firebaseApp.database().ref(`auth/${username}/`).once('value');
     let authInfo = authInfoSnapshot.val();
@@ -66,6 +66,7 @@ app.use(async (req, res, done) => {
     console.log('Setting verification state:', state);
     res.cookie('state', state, {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
     done();
+    return;
   } else if(!req.cookies.state) {
     res.statusCode = 403;
     res.send(JSON.stringify({error: true, message: "Token missing or session lost."}))
