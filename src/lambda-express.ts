@@ -79,7 +79,7 @@ app.use(async (req, res, done) => {
 let router = express.Router();
 
 Github(router, passport);
-// Gitlab(router, passport);
+Gitlab(router, passport);
 Dropbox(router, passport);
 Microsoft(router, passport);
 Stripe(router, passport);
