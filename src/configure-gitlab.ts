@@ -1,4 +1,4 @@
-import { Strategy } from 'passport-gitlab';
+import { Strategy } from 'passport-gitlab2';
 import * as Constants from './constants';
 
 import TokenHandler from "./TokenHandler";
