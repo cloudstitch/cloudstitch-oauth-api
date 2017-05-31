@@ -38,7 +38,7 @@ app.use(async (req, res, done) => {
     try {
       username = token.checkWebToken(req.query.token);
     } catch(e) {}
-    if(!username) {
+    if(!username || typeof username !== "string") {
       res.statusCode = 403;
       res.send(JSON.stringify({error: true, message: "Token malformed or username field missing."}))
       res.end();
@@ -79,7 +79,7 @@ app.use(async (req, res, done) => {
 let router = express.Router();
 
 Github(router, passport);
-Gitlab(router, passport);
+// Gitlab(router, passport);
 Dropbox(router, passport);
 Microsoft(router, passport);
 Stripe(router, passport);
