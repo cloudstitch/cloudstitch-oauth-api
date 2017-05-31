@@ -8,7 +8,7 @@ const SERVICE = 'gitlab';
 export function Configure(router: any, passport: any) {
   // Github
   // ------
-  if(Constants[SERVICE]) {
+  if(Constants[SERVICE] && Constants[SERVICE].ClientID !== "XXXX") {
     let opts = {
       clientID: Constants[SERVICE].ClientID,
       clientSecret: Constants[SERVICE].ClientSecret,
