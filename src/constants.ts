@@ -51,6 +51,7 @@ var base = {
   production: prod,
   staging: staging,
   environmentName: environmentName,
+  cookieName: `state-${environmentName}`,
   loadingUrl: "http://cloudstitch.com/loading",
   callbackURLs: {
     development: {

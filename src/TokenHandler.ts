@@ -25,7 +25,7 @@ let save = async function (token: string, refreshToken: string, service: string,
 export default function TokenHandler(SERVICE: string) {
   return async (req, accessToken, refreshToken, profile, done) => {
     console.log("--------------------- handling token")
-    let snapshot = await firebaseApp.database().ref(`auth/${req.cookies.state}/`).once('value');
+    let snapshot = await firebaseApp.database().ref(`auth/${req.cookies[Constants.cookieName]}/`).once('value');
     let username = snapshot.val();
     await save(accessToken, refreshToken, SERVICE, username);
     done(null);

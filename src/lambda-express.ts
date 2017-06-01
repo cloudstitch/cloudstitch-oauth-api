@@ -32,7 +32,7 @@ app.use(cookieParser());
 
 // Add a state cookie
 app.use(async (req, res, done) => {
-  if(!req.cookies.state && req.query.token) {
+  if(!req.cookies[Constants.cookieName] && req.query.token) {
     //see if the current user has a state value stored in the firebase auth info
     let username;
     try {
@@ -64,10 +64,10 @@ app.use(async (req, res, done) => {
       });
     }
     console.log('Setting verification state:', state);
-    res.cookie('state', state, {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
+    res.cookie(Constants.cookieName, state, {maxAge: 3600000, secure: !Constants.development, httpOnly: Constants.development});
     done();
     return;
-  } else if(!req.cookies.state) {
+  } else if(!req.cookies[Constants.cookieName]) {
     res.statusCode = 403;
     res.send(JSON.stringify({error: true, message: "Token missing or session lost."}))
     res.end();
