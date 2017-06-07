@@ -10,8 +10,8 @@ export function Configure(router: any, passport: any) {
   // ------
   if(Constants[SERVICE]) {
     let opts = {
-      consumerKey: Constants[SERVICE].consumerKey,
-      consumerSecret: Constants[SERVICE].consumerSecret,
+      consumerKey: Constants[SERVICE].ClientID,
+      consumerSecret: Constants[SERVICE].ClientSecret,
       callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
       passReqToCallback: true
     };

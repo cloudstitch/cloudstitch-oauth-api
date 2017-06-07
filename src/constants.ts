@@ -102,7 +102,10 @@ var base = {
 
   // Not done
 
-  google: secrets.Google,
+  google: {
+    ClientID: secrets.Google.ClientID,
+    ClientSecret: secrets.Google.ClientSecret
+  },
   Box: secrets.Box,
   microsoft: secrets.Microsoft,
 
