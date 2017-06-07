@@ -10,6 +10,7 @@ export function Configure(router: any, passport: any) {
   // ------
   if(Constants[SERVICE]) {
     let opts = {
+      apiVersion: '2',
       clientID: Constants[SERVICE].ClientID,
       clientSecret: Constants[SERVICE].ClientSecret,
       callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],

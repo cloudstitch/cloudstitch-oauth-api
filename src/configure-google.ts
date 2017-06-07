@@ -1,4 +1,4 @@
-import { OAuthStrategy as Strategy } from 'passport-google-oauth';
+import * as Strategy from 'passport-google-oauth2';
 import * as Constants from './constants';
 
 import TokenHandler from "./TokenHandler";
@@ -17,7 +17,7 @@ export function Configure(router: any, passport: any) {
     };
     console.log(opts);
 
-    passport.use(new Strategy(<any>opts, <any>TokenHandler(SERVICE)));
+    passport.use(new Strategy(opts, TokenHandler(SERVICE)));
 
     router.get(`/${SERVICE}/redirect`,
       passport.authenticate(SERVICE, {

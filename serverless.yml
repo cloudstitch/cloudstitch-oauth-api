@@ -26,7 +26,7 @@ plugins:
   # - serverless-enable-api-logs
   # - serverless-offline
   # - serverless-webpack
-  # - serverless-prune-plugin
+  - serverless-prune-plugin
 
 package:
   exclude:
