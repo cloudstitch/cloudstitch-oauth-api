@@ -20,7 +20,7 @@ export function Configure(router: any, passport: any) {
 
     router.get(`/${SERVICE}/redirect`,
       passport.authenticate(SERVICE, {
-
+        scope: "api"
       })
     );
 
