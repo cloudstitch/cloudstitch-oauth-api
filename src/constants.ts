@@ -51,6 +51,8 @@ var base = {
   production: prod,
   staging: staging,
   environmentName: environmentName,
+  callbackBase: `https://oauth.cloudstitch.com/${environmentName}`,
+  callbackComplete: `https://cloudstitch.com`,
   loadingUrl: "http://cloudstitch.com/loading",
   callbackURLs: {
     development: {
