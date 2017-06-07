@@ -102,9 +102,9 @@ var base = {
 
   // Not done
 
-  Google: secrets.Google,
+  google: secrets.Google,
   Box: secrets.Box,
-  Microsoft: secrets.Microsoft,
+  microsoft: secrets.Microsoft,
 
   Twilio: {
     SID: secrets.Twilio.SID,
@@ -116,14 +116,16 @@ var base = {
     Key: secrets.Intercom.Key
   },
 
-  Stripe: {
+  stripe: {
     ButtonjoySecretKey: secrets.Stripe.ButtonjoySecretKey,
     ButtonjoyCharitySecretKey: secrets.Stripe.ButtonjoyCharitySecretKey,    
     ButtonjoyTestSecretKey: 'sk_test_hWoYu3rgL3R2l4HcxdBamqUE',
     ButtonjoyCharityTestSecretKey: 'sk_test_MSOIJBVyKPxedruMRbsHsC41',    
     SecretKey: secrets.Stripe.SecretKey,
     PublicKey: secrets.Stripe.PublishableKey,
-    ConnectClientKey: secrets.Stripe.ConnectClientKey
+    ConnectClientKey: secrets.Stripe.ConnectClientKey,
+    ClientID: "XXX",
+    ClientSecret: "DEAFBEEF"
   },
   WebToken: {
     publicKeyPath: path.join(__dirname, '..', 'configuration', 'secrets', `${environmentName}-webtoken.public.key`)
