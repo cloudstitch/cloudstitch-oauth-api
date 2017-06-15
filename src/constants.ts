@@ -51,8 +51,7 @@ var base = {
   production: prod,
   staging: staging,
   environmentName: environmentName,
-  callbackBase: `https://oauth.cloudstitch.com/${environmentName}`,
-  callbackComplete: `https://cloudstitch.com`,
+  cookieName: `state-${environmentName}`,
   loadingUrl: "http://cloudstitch.com/loading",
   callbackURLs: {
     development: {
@@ -103,9 +102,12 @@ var base = {
 
   // Not done
 
-  Google: secrets.Google,
+  google: {
+    ClientID: secrets.Google.ClientID,
+    ClientSecret: secrets.Google.ClientSecret
+  },
   Box: secrets.Box,
-  Microsoft: secrets.Microsoft,
+  microsoft: secrets.Microsoft,
 
   Twilio: {
     SID: secrets.Twilio.SID,
@@ -117,14 +119,16 @@ var base = {
     Key: secrets.Intercom.Key
   },
 
-  Stripe: {
+  stripe: {
     ButtonjoySecretKey: secrets.Stripe.ButtonjoySecretKey,
     ButtonjoyCharitySecretKey: secrets.Stripe.ButtonjoyCharitySecretKey,    
     ButtonjoyTestSecretKey: 'sk_test_hWoYu3rgL3R2l4HcxdBamqUE',
     ButtonjoyCharityTestSecretKey: 'sk_test_MSOIJBVyKPxedruMRbsHsC41',    
     SecretKey: secrets.Stripe.SecretKey,
     PublicKey: secrets.Stripe.PublishableKey,
-    ConnectClientKey: secrets.Stripe.ConnectClientKey
+    ConnectClientKey: secrets.Stripe.ConnectClientKey,
+    ClientID: secrets.Stripe.ConnectClientKey,
+    ClientSecret: secrets.Stripe.ConnectClientKey
   },
   WebToken: {
     publicKeyPath: path.join(__dirname, '..', 'configuration', 'secrets', `${environmentName}-webtoken.public.key`)

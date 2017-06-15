@@ -10,14 +10,14 @@ export function Configure(router: any, passport: any) {
   // ------
   if(Constants[SERVICE]) {
     let opts = {
-      consumerKey: Constants[SERVICE].consumerKey,
-      consumerSecret: Constants[SERVICE].consumerSecret,
+      ClientID: Constants[SERVICE].ClientID,
+      ClientSecret: Constants[SERVICE].ClientSecret,
       callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
       passReqToCallback: true
     };
     console.log(opts);
 
-    passport.use(new Strategy(opts, <any>TokenHandler(SERVICE)));
+    passport.use(new Strategy(<any>opts, <any>TokenHandler(SERVICE)));
 
     router.get(`/${SERVICE}/redirect`,
       passport.authenticate(SERVICE, {

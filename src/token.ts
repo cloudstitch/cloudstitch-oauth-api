@@ -2,7 +2,7 @@ import jwt = require('jsonwebtoken');
 import fs = require("fs");
 import * as Constants from "./constants";
 
-export async function checkWebToken(token: string): Promise<string> {
+export function checkWebToken(token: string): string {
   var cert = fs.readFileSync(Constants.WebToken.publicKeyPath);
   try {
     var decoded = jwt.verify(token, cert, {algorithms: ['RS256']});

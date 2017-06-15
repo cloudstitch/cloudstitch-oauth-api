@@ -1,4 +1,4 @@
-import { Strategy } from 'passport-gitlab';
+import { Strategy } from 'passport-gitlab2';
 import * as Constants from './constants';
 
 import TokenHandler from "./TokenHandler";
@@ -8,7 +8,7 @@ const SERVICE = 'gitlab';
 export function Configure(router: any, passport: any) {
   // Github
   // ------
-  if(Constants[SERVICE] && Constants[SERVICE].ClientID !== "XXXX") {
+  if(Constants[SERVICE]) {
     let opts = {
       clientID: Constants[SERVICE].ClientID,
       clientSecret: Constants[SERVICE].ClientSecret,
