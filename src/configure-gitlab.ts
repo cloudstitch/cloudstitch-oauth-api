@@ -20,9 +20,9 @@ export function Configure(router: any, passport: any) {
 
     router.get(`/${SERVICE}/redirect`,
       passport.authenticate(SERVICE, {
-        scope: 'repo'
-      }
-    ));
+        scope: "api"
+      })
+    );
 
     router.route(`/${SERVICE}/token`)
       .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),

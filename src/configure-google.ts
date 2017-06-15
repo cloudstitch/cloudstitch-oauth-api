@@ -1,4 +1,4 @@
-import { OAuthStrategy as Strategy } from 'passport-google-oauth';
+import * as Strategy from 'passport-google-oauth2';
 import * as Constants from './constants';
 
 import TokenHandler from "./TokenHandler";
@@ -10,14 +10,14 @@ export function Configure(router: any, passport: any) {
   // ------
   if(Constants[SERVICE]) {
     let opts = {
-      ClientID: Constants[SERVICE].ClientID,
-      ClientSecret: Constants[SERVICE].ClientSecret,
+      clientID: Constants[SERVICE].ClientID,
+      clientSecret: Constants[SERVICE].ClientSecret,
       callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
       passReqToCallback: true
     };
     console.log(opts);
 
-    passport.use(new Strategy(<any>opts, <any>TokenHandler(SERVICE)));
+    passport.use(new Strategy(opts, TokenHandler(SERVICE)));
 
     router.get(`/${SERVICE}/redirect`,
       passport.authenticate(SERVICE, {

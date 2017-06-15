@@ -119,6 +119,11 @@ var base = {
     Key: secrets.Intercom.Key
   },
 
+  dropbox: {
+    ClientID: secrets.Dropbox.ClientID,
+    ClientSecret: secrets.Dropbox.ClientSecret,
+  },
+
   stripe: {
     ButtonjoySecretKey: secrets.Stripe.ButtonjoySecretKey,
     ButtonjoyCharitySecretKey: secrets.Stripe.ButtonjoyCharitySecretKey,    
