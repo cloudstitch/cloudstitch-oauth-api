@@ -59,7 +59,8 @@ app.use(async (req, res, done) => {
         google: false,
         dropbox: false,
         stripe: false,
-        microsoft: false
+        microsoft: false,
+        state
       });
     }
     console.log('Setting verification state:', state);
