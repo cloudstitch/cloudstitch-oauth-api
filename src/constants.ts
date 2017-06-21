@@ -52,7 +52,7 @@ var base = {
   staging: staging,
   environmentName: environmentName,
   cookieName: `state-${environmentName}`,
-  loadingUrl: "http://cloudstitch.com/loading",
+  loadingUrl: prod ? "https://www.cloudstitch.com/oauth-complete" : staging ? "https://staging.cloudstitch.com/oauth-complete" : "http://localhost:8081/oauth-complete",
   callbackURLs: {
     development: {
       github:  "http://development.cloudstitch.com:3000/github/token",
