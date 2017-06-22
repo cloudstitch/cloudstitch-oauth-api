@@ -133,7 +133,7 @@ var base = {
     PublicKey: secrets.Stripe.PublishableKey,
     ConnectClientKey: secrets.Stripe.ConnectClientKey,
     ClientID: secrets.Stripe.ConnectClientKey,
-    ClientSecret: secrets.Stripe.ConnectClientKey
+    ClientSecret: secrets.Stripe.SecretKey
   },
   WebToken: {
     publicKeyPath: path.join(__dirname, '..', 'configuration', 'secrets', `${environmentName}-webtoken.public.key`)
