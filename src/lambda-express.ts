@@ -32,6 +32,7 @@ app.use(cookieParser());
 
 // Add a state cookie
 app.use(async (req, res, done) => {
+  res.set('Cache-Control', 'no-cache');
   if(!req.cookies[Constants.cookieName] && req.query.token) {
     //see if the current user has a state value stored in the firebase auth info
     let username;
