@@ -6,11 +6,9 @@ import TokenHandler from "./TokenHandler";
 const SERVICE = 'stripe';
 
 export function Configure(router: any, passport: any) {
-  // Github
-  // ------
   if(Constants[SERVICE]) {
     let opts = {
-      clientID: Constants[SERVICE].ClientID,
+      clientID: Constants[SERVICE].ConnectClientKey,
       clientSecret: Constants[SERVICE].ClientSecret,
       callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
       passReqToCallback: true
