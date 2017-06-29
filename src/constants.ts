@@ -46,7 +46,7 @@ console.log("Environment: ", environmentName);
 console.log(secrets);
 
 var base = {
-  failureUrl: prod ? "https://www.cloudstitch.com/login" : staging ? "https://staging.cloudstitch.com/login" : "http://localhost:3000",
+  failureUrl: prod ? "https://www.cloudstitch.com/oauth-failed" : staging ? "https://staging.cloudstitch.com/oauth-failed" : "http://localhost:8081/oauth-failed",
   development: dev,
   production: prod,
   staging: staging,
