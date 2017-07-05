@@ -67,13 +67,15 @@ app.use(async (req, res, done) => {
     let authInfo = authInfoSnapshot.val();
 
     const state = (authInfo && authInfo.state) ? authInfo.state : crypto.randomBytes(20).toString('hex')
+
+    // We're going to set this either way because of the authstage prefix change.
+    await firebaseApp.database().ref(`authstate/${state}/`).set(username);
     
     console.log("Existing snapshot", state, authInfo);
 
     if(!authInfo) {
       // no auth info yet? sore it
       console.log("No auth info. Storing");
-      await firebaseApp.database().ref(`authstate/${state}/`).set(username);
       await firebaseApp.database().ref(`auth/${fbUsername}/`).set({
         github: false,
         gitlab: false,
