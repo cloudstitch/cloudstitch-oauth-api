@@ -33,12 +33,18 @@ app.use(cookieParser());
 // Add a state cookie
 app.use(async (req, res, done) => {
   res.set('Cache-Control', 'no-cache');
+
+  console.log("Cookie", req.cookies[Constants.cookieName]);
+  console.log("Query Token", req.query.token);
+
   if(!req.cookies[Constants.cookieName] && req.query.token) {
     //see if the current user has a state value stored in the firebase auth info
     let username;
     try {
       username = token.checkWebToken(req.query.token);
-    } catch(e) {}
+    } catch(e) {
+      console.log("couldn't verify web token", e);
+    }
     if(!username || typeof username !== "string") {
       res.statusCode = 403;
       console.log("Token malformed or username field missing", username);
@@ -84,9 +90,13 @@ app.use(async (req, res, done) => {
     return;
   } else if(!req.cookies[Constants.cookieName]) {
     res.statusCode = 403;
+    console.log("Token missing or session lost");
+    res.clearCookie(Constants.cookieName);
     res.send(JSON.stringify({error: true, message: "Token missing or session lost."}))
     res.end();
   } else {
+    console.log("Skipping cookie business");
+    res.clearCookie(Constants.cookieName);
     done();
   }
 })
