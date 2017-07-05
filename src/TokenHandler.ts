@@ -11,13 +11,13 @@ let firebaseApp: firebaseAdmin.app.App = firebaseAdmin.app(`cloudstitch-${Consta
 let save = async function (token: string, refreshToken: string, service: string, username: string) {
   let firebaseApp: firebaseAdmin.app.App =  firebaseAdmin.app(`cloudstitch-${Constants.environmentName}`)
 
-    var fbUsername = username
-      .replace(/\./g, '-DOT-')
-      .replace(/\$/g, '-DOLLAR-')
-      .replace(/\[/g, '-OPEN-')
-      .replace(/\]/g, '-CLOSE-')
-      .replace(/\#/g, '-POUND-')
-      .replace(/\//g, '-SLASH-');
+  var fbUsername = username
+    .replace(/\./g, '-DOT-')
+    .replace(/\$/g, '-DOLLAR-')
+    .replace(/\[/g, '-OPEN-')
+    .replace(/\]/g, '-CLOSE-')
+    .replace(/\#/g, '-POUND-')
+    .replace(/\//g, '-SLASH-');
 
   let newDbToken = Token.create();
   newDbToken.token = token;
