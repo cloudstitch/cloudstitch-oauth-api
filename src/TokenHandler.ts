@@ -10,16 +10,25 @@ let firebaseApp: firebaseAdmin.app.App = firebaseAdmin.app(`cloudstitch-${Consta
 
 let save = async function (token: string, refreshToken: string, service: string, username: string) {
   let firebaseApp: firebaseAdmin.app.App =  firebaseAdmin.app(`cloudstitch-${Constants.environmentName}`)
+
+    var fbUsername = username
+      .replace(/\./g, '-DOT-')
+      .replace(/\$/g, '-DOLLAR-')
+      .replace(/\[/g, '-OPEN-')
+      .replace(/\]/g, '-CLOSE-')
+      .replace(/\#/g, '-POUND-')
+      .replace(/\//g, '-SLASH-');
+
   let newDbToken = Token.create();
   newDbToken.token = token;
   newDbToken.user = username;
   newDbToken.refreshToken = refreshToken;
   newDbToken.service = service;
   await Q.nfcall(dynamoDb.update, newDbToken, {fields: ["token", "refreshToken"]});
-  let snapshot = await firebaseApp.database().ref(`auth/${username}`).once('value');
+  let snapshot = await firebaseApp.database().ref(`auth/${fbUsername}`).once('value');
   let authInfo = snapshot.val();
   authInfo[service] =true;
-  await firebaseApp.database().ref(`auth/${username}`).set(authInfo);
+  await firebaseApp.database().ref(`auth/${fbUsername}`).set(authInfo);
 }
 
 export default function TokenHandler(SERVICE: string) {

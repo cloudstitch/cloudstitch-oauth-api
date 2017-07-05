@@ -46,15 +46,23 @@ app.use(async (req, res, done) => {
       return;
     }
 
-    let authInfoSnapshot = await firebaseApp.database().ref(`auth/${username}/`).once('value');
+    var fbUsername = username
+      .replace(/\./g, '-DOT-')
+      .replace(/\$/g, '-DOLLAR-')
+      .replace(/\[/g, '-OPEN-')
+      .replace(/\]/g, '-CLOSE-')
+      .replace(/\#/g, '-POUND-')
+      .replace(/\//g, '-SLASH-');
+
+    let authInfoSnapshot = await firebaseApp.database().ref(`auth/${fbUsername}/`).once('value');
     let authInfo = authInfoSnapshot.val();
 
     const state = authInfo ? authInfo.state : crypto.randomBytes(20).toString('hex')
     
     if(!authInfo) {
       // no auth info yet? sore it
-      await firebaseApp.database().ref(`auth/${state}/`).set(username);
-      await firebaseApp.database().ref(`auth/${username}/`).set({
+      await firebaseApp.database().ref(`auth/${state}/`).set(fbUsername);
+      await firebaseApp.database().ref(`auth/${fbUsername}/`).set({
         github: false,
         gitlab: false,
         google: false,
