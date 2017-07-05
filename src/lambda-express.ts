@@ -61,7 +61,7 @@ app.use(async (req, res, done) => {
     
     if(!authInfo) {
       // no auth info yet? sore it
-      await firebaseApp.database().ref(`auth/${state}/`).set(username);
+      await firebaseApp.database().ref(`authstate/${state}/`).set(username);
       await firebaseApp.database().ref(`auth/${fbUsername}/`).set({
         github: false,
         gitlab: false,
