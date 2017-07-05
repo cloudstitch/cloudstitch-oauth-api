@@ -41,6 +41,7 @@ app.use(async (req, res, done) => {
     } catch(e) {}
     if(!username || typeof username !== "string") {
       res.statusCode = 403;
+      console.log("Token malformed or username field missing", username);
       res.send(JSON.stringify({error: true, message: "Token malformed or username field missing."}))
       res.end();
       return;
@@ -54,13 +55,18 @@ app.use(async (req, res, done) => {
       .replace(/\#/g, '-POUND-')
       .replace(/\//g, '-SLASH-');
 
+    console.log("Username", username, "with fb path variant", fbUsername);
+
     let authInfoSnapshot = await firebaseApp.database().ref(`auth/${fbUsername}/`).once('value');
     let authInfo = authInfoSnapshot.val();
 
-    const state = authInfo ? authInfo.state : crypto.randomBytes(20).toString('hex')
+    const state = (authInfo && authInfo.state) ? authInfo.state : crypto.randomBytes(20).toString('hex')
     
+    console.log("Existing snapshot", state, authInfo);
+
     if(!authInfo) {
       // no auth info yet? sore it
+      console.log("No auth info. Storing");
       await firebaseApp.database().ref(`authstate/${state}/`).set(username);
       await firebaseApp.database().ref(`auth/${fbUsername}/`).set({
         github: false,
