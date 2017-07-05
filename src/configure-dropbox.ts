@@ -1,36 +1,17 @@
 import { Strategy } from 'passport-dropbox-oauth2';
 import * as Constants from './constants';
 
-import TokenHandler from "./TokenHandler";
+import CreateConfigure from "./configure";
 
 const SERVICE = 'dropbox';
+const PASSPORT_SERVICE = 'dropbox-oauth2'
+const OPTS = {
+    apiVersion: '2',
+    clientID: Constants[SERVICE].ClientID,
+    clientSecret: Constants[SERVICE].ClientSecret,
+    callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
+    passReqToCallback: true
+  };
+const SCOPE = {}
 
-export function Configure(router: any, passport: any) {
-  // Dropbox
-  // ------
-  if(Constants[SERVICE]) {
-    let opts = {
-      apiVersion: '2',
-      clientID: Constants[SERVICE].ClientID,
-      clientSecret: Constants[SERVICE].ClientSecret,
-      callbackURL: Constants.callbackURLs[Constants.environmentName][SERVICE],
-      passReqToCallback: true
-    };
-    console.log(opts);
-
-    passport.use(new Strategy(opts, TokenHandler(SERVICE)));
-
-    router.get(`/${SERVICE}/redirect`,
-      passport.authenticate('dropbox-oauth2', {
-      }
-    ));
-
-    router.route(`/${SERVICE}/token`)
-      .get(passport.authenticate(SERVICE, { failureRedirect: Constants.failureUrl }),
-        (req, res) => {
-          res.redirect("https://www.cloudstitch.com/");
-        });
-
-  }
-
-}
+export let Configure = CreateConfigure(SERVICE, PASSPORT_SERVICE, OPTS, Strategy, SCOPE);

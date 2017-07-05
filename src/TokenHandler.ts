@@ -50,7 +50,7 @@ export default function TokenHandler(SERVICE: string) {
     let username = snapshot.val();
     console.log("Updating username", username, "for token", token);
     await save(accessToken, refreshToken, SERVICE, username);
-    console.log("Success");
-    done(null);
+    console.log("Success", typeof done);
+    done(null, {});
   };
 }
