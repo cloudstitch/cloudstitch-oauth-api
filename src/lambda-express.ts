@@ -29,6 +29,7 @@ let app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(cookieParser());
+app.use(passport.initialize());
 
 // Add a state cookie
 app.use(async (req, res, done) => {
