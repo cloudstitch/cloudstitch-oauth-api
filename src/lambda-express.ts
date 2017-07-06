@@ -31,6 +31,14 @@ app.use(bodyParser.json({type: 'application/json'}));
 app.use(cookieParser());
 app.use(passport.initialize());
 
+passport.serializeUser(function(user, done) {
+  done(null, 0);
+});
+
+passport.deserializeUser(function(id, done) {
+  done(null, {})
+});
+
 // Add a state cookie
 app.use(async (req, res, done) => {
   res.set('Cache-Control', 'no-cache');
